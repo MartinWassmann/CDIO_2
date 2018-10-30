@@ -8,28 +8,26 @@ public class Main {
         Dice die1 = new Dice();
         Dice die2 = new Dice();
 
-        //Spiller 1 oprettes med sin bankkonto
-
-        System.out.println("Indtast navn for spiller 1 ");
+        System.out.println("Indtast navn for spiller 1 ");       //Creates two players with their input as their name
         Player player1 = new Player(scan.next());
 
         System.out.println("Indtast navn for spiller 2 ");
-        Player player2 = new Player (scan.next());
+        Player player2 = new Player(scan.next());
 
-        // Hvordan inkorperes bankkontos variable med spiller klassen????
-
-        Player currentPlayer = player1;
-        int sum = 0;
+        Player currentPlayer = player1;       // Creating a currentPlayer to represent whose turn it is
+        int sum = 0;                          //Sum of die values
+        // The game is in a while loop which stops when either player reaches the winning score
         while (player1.getAccount().getBalance() < 3000 && player2.getAccount().getBalance() < 3000) {
 
             System.out.println("It is " + currentPlayer.getName() + "'s turn");
-            // ruller terningen
+
             die1.roll();
             die2.roll();
+            System.out.println("Press 1 to roll");
+            //scan.next("1");
             sum = die1.getValue() + die2.getValue();
             System.out.println("You have rolled: " + die1.getValue() + " and " + die2.getValue() + " which equals " + sum);
 
-            // selve spillet, det skal raffineres.
             switch (sum) {
                 case 2:
                     currentPlayer.getAccount().deposit(250);
@@ -56,7 +54,7 @@ public class Main {
                     break;
                 case 8:
                     currentPlayer.getAccount().withdraw(70);
-                    System.out.println("Du besøger desværre den sorte grotte og det betyder desværre du lider et tab på 80 ");
+                    System.out.println("Du besøger desværre den sorte grotte og det betyder desværre du lider et tab på 70 ");
                     break;
                 case 9:
                     currentPlayer.getAccount().deposit(60);
@@ -89,9 +87,13 @@ public class Main {
                 currentPlayer = player1;
             }
         }
+        if (player1.getAccount().getBalance() > 3000) {
+            System.out.println("Congratulations " + player1.getName() + " Wins!!");
+        } else {
+            System.out.println("Congratulations " + player2.getName() + " Wins!!");
+        }
     }
 }
-
 
 
     /*(Man kan ikke slå 1 med to terninger)
