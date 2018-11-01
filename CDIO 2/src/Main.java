@@ -1,108 +1,100 @@
 import java.util.Scanner;
 
 public class Main {
-    public void main(String[] args) {
-
-        double amount;
-        int sum;
-
+    public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
 
         Dice die1 = new Dice();
         Dice die2 = new Dice();
 
-        //Spiller 1 oprettes med sin bankkonto
-
-        System.out.println("Indtast navn for spiller 1 ");
+        System.out.println("Indtast navn for spiller 1 ");       //Creates two players with their input as their name
         Player player1 = new Player(scan.next());
 
-
         System.out.println("Indtast navn for spiller 2 ");
-        Player player2 = new Player (scan.next());
+        Player player2 = new Player(scan.next());
 
-        // Hvordan inkorperes bankkontos variable med spiller klassen????
+        Player currentPlayer = player1;       // Creating a currentPlayer to represent whose turn it is
+        int sum = 0;                          //Sum of die values
+        // The game is in a while loop which stops when either player reaches the winning score
+        while (player1.getAccount().getBalance() < 3000 && player2.getAccount().getBalance() < 3000) {
 
+            System.out.println("It is " + currentPlayer.getName() + "'s turn");
 
-        Player currentplayer = player1;
+            die1.roll();
+            die2.roll();
+            System.out.println("Press 1 to roll");
+            //scan.next("1");
+            sum = die1.getValue() + die2.getValue();
+            System.out.println("You have rolled: " + die1.getValue() + " and " + die2.getValue() + " which equals " + sum);
 
-        while (player1.getBalance() < 3000 && player2.getBalance() < 3000)
-
-            // sætter balance til 0 hvis den er negativ
-
-              if (player1.getBalance() < 0 ) {
-                player1.;
-            } if (player2.getBalance() < 0)  {
-                player2.(0);
-            }
-
-
-            // rulle teknik her til terningen (vil hellere have en metode at bruge hvis det kan lade sig gøre)
-            sum = 0;
-
-            sum = die1.roll() + die2.roll();
-
-
-            // selve spillet, det skal raffineres.
             switch (sum) {
                 case 2:
-                    amount = 250;
-                    Player.deposit;
+                    currentPlayer.getAccount().deposit(250);
                     System.out.println("Der er kolde kontanter i tårenet, du tjener 250! ");
                     break;
                 case 3:
-                    this.balance1 -= 100;
+                    currentPlayer.getAccount().withdraw(100);
                     System.out.println("Du er faldet i krateret og det koster hele 100 at komme op ");
                     break;
                 case 4:
-                    this.balance += 100;
+                    currentPlayer.getAccount().deposit(100);
                     System.out.println("Du er nået frem til paladsets porte, du får 100kr af guds engle ");
                     break;
                 case 5:
-                    this.balance -= 20;
+                    currentPlayer.getAccount().withdraw(20);
                     System.out.println(" Du fryser så meget i den kolde ørken at du brænder 20 for at holde varmen");
                     break;
                 case 6:
-                    this.balance += 180;
+                    currentPlayer.getAccount().deposit(180);
                     System.out.println(" Du er ankommet til den afkransede by, du får 180 ");
                     break;
                 case 7:
                     System.out.println("Du besøger klostrede, det har ingen effekt på din balance");
                     break;
                 case 8:
-                    this.balance -= 70;
-                    System.out.println("Du besøger desværre den sorte grotte og det betyder desværre du lider et tab på 80 ");
+                    currentPlayer.getAccount().withdraw(70);
+                    System.out.println("Du besøger desværre den sorte grotte og det betyder desværre du lider et tab på 70 ");
                     break;
                 case 9:
+                    currentPlayer.getAccount().deposit(60);
                     System.out.println("Du finder nogle hyggelige hytter i bjergene og din balance stiger med 60");
-                    this.balance += 60;
                     break;
                 case 10:
+                    currentPlayer.getAccount().withdraw(80);
                     System.out.println("Du løber ind i nogle varerulve og løber for dit liv. Du taber desværre 80 på vejen. ");
                     System.out.println("Du får en tur til");
-                    this.balance -= 80;
                     break;
                 case 11:
+                    currentPlayer.getAccount().withdraw(50);
                     System.out.println("Du falder desværre i kløften og skal betale hele 50 for at komme op igen. ");
-                    this.balance -= 50;
                     break;
                 case 12:
+                    currentPlayer.getAccount().deposit(650);
                     System.out.println("Du har fundet guld i bjergene og sælger det for 650, du er rig!. ");
-                    this.balance += 650;
+                    break;
+                default:
                     break;
 
-                    // Skifter spiller så man ikke behøver duplikere loop
+            }
+            // Skifter spiller så man ikke behøver duplikere loop
 
-                    if (die1.getValue() == die2.getValue()) {
-                    }
-                else if(currentplayer == player1) {
-                    currentplayer = player2;
-                } else {
-                    currentplayer = player1;
-                }
+            if (sum == 10) {
+                continue;
+            } else if (currentPlayer == player1) {
+                currentPlayer = player2;
+            } else {
+                currentPlayer = player1;
             }
         }
+        if (player1.getAccount().getBalance() > 3000) {
+            System.out.println("Congratulations " + player1.getName() + " Wins!!");
+        } else {
+            System.out.println("Congratulations " + player2.getName() + " Wins!!");
+        }
     }
+}
+
 
     /*(Man kan ikke slå 1 med to terninger)
     Tower 		+250
@@ -120,4 +112,4 @@ public class Main {
 
 }
 }
-}
+}*/
